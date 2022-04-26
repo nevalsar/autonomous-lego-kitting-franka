@@ -1,0 +1,78 @@
+ssh -X student@iam-sneezy
+camilo
+student2
+16-662 (password)
+**********in SSH***********
+firefox
+*******in FIREFOX***********
+172.16.0.2
+unlock joints
+rotate ekill button
+
+********in NORMAL Terminal******
+cd ~/Prog/frankapy/
+bash bash_scripts/start_control_pc.sh -u student -i iam-sneezy
+senv (every new Terminal)
+
+#to reset_arm
+cd ~/Prog/frankapy/
+python scripts/reset_arm.py
+
+#to use gripper only (alrready running with suffix 1)
+roslaunch franka_gripper franka_gripper.launch robot_ip:=192.168.0.1
+
+#to solve ros controller problem
+sudo apt-get install ros-melodic-ros-control
+sudo apt-get install ros-melodic-controller-manager
+
+
+#to use gripper and arm
+roslaunch franka_control franka_control.launch robot_ip:=192.168.0.1 load_gripper:=true
+
+#to check connection and vizualize
+roslaunch franka_visualization franka_visualization.launch robot_ip:=192.168.0.1 load_gripper:=true
+
+
+#to fix urdf issue
+student2@iam-camilo:/opt/ros/melodic/share$ sudo rm -rf panda_moveit_config/
+sudo cp -r ~/Downloads/panda_moveit_config /opt/ros/melodic/share/
+pip install defusedxml
+
+#to fix rviz panel plugin
+sudo apt-get install ros-melodic-moveit
+sudo apt-get install ros-melodic-moveit-visual-tools
+
+#to fix robot pose subscribe
+#to fix moveit planning, set false fake_execution in demo.launch
+#to  panda_moveit_config/launch/demo.launch, replace demo.launch with our version
+
+
+#on master
+roslaunch franka_interface interface.launch
+
+#on remote 
+roslaunch franka_moveit demo_moveit.launch
+
+#to start azure camera
+roslaunch azure_kinect_ros_driver driver.launch 
+
+#to use web interface
+cd ~/iam-construct
+./iam-construct-run.sh sneezy
+
+#to move point to point
+cd ~/Prog/iam-interface/iam-domain-handler/examples/
+python robot_autonomy_lab_1.py
+
+#to pick block from marker
+cd ~/Prog/iam-interface/camera-calibration
+python scripts/run_pick_up_using_camera.py
+
+#to run hardcoded 
+cd ~/Prog/iam-interface/camera-calibration
+python scripts/run_pick_up_hardcoded.py
+
+
+#to run autonomous
+cd ~/team8
+python check.py
